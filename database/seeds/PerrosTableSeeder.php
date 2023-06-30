@@ -15,6 +15,7 @@ class PerrosTableSeeder extends Seeder
     {
         Perro::create([
             'race' => 'Labrador',
+            'name' => 'Pepe',
             'size' => 'Grande',
             'hair_color' => 'Negro',
             'img_url' => 'imagen1.jpg',
@@ -22,6 +23,7 @@ class PerrosTableSeeder extends Seeder
 
         Perro::create([
             'race' => 'BullDog',
+            'name' => 'Manolo',
             'size' => 'Mediano',
             'hair_color' => 'Marrón',
             'img_url' => 'imagen2.jpg',
