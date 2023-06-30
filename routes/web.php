@@ -17,11 +17,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
-//Route::get('/home', 'HomeController@index');
-Route::get('/home', 'PerroController@index');
-Route::get('/perros', 'PerroController@index');
-Route::get('/perros/{id}', 'PerroController@edit')->name('perros.edit');
-Route::put('/perros/{id}', 'PerroController@update')->name('perros.update');
-Route::delete('/perros/{id}', 'PerroController@destroy')->name('perros.destroy');
+Route::group(['middleware' => 'auth'], function () {
+    // Rutas protegidas que requieren autenticación
+    Route::get('/home', 'PerroController@index');
+    Route::get('/perros', 'PerroController@index');
+    Route::get('/perros/{id}', 'PerroController@edit')->name('perros.edit');
+    Route::put('/perros/{id}', 'PerroController@update')->name('perros.update');
+    Route::delete('/perros/{id}', 'PerroController@destroy')->name('perros.destroy');
+});
 
 
