@@ -10,6 +10,7 @@ class Perro extends Model
 
     protected $fillable = [
         'race',
+        'name',
         'size',
         'hair_color',
         'img_url',
