@@ -6,6 +6,11 @@
                   <div class="panel-heading">Editar Perro</div>
 
                   <div class="panel-body">
+                    <!-- elemento de notificación -->
+                    <div v-if="mostrarNotificacion" :class="['notification', tipoNotificacion]">
+                      {{ mensajeNotificacion }}
+                    </div>
+
                       <form @submit="actualizarPerro" :action="formAction" method="POST">
                           <input type="hidden" name="_method" value="PUT">
                           <input type="hidden" name="_token" :value="csrfToken">
@@ -46,6 +51,8 @@ export default {
     return {
       csrfToken: '',
       formAction: '',
+      mostrarNotificacion: false, 
+      tipoNotificacion: '', 
     };
   },
   mounted() {
@@ -72,11 +79,30 @@ export default {
               .then(data => {
                   // Lógica para manejar la respuesta del servidor
                   console.log(data);
-                  // Recargar los datos del perro si es necesario
-              })
+                   // Mostrar la notificación
+                   this.mensajeNotificacion = data.message;
+                  this.mostrarNotificacion = true;
+                  this.tipoNotificacion = 'success';
+                  
+
+                  // Ocultar la notificación después de 3 segundos
+                  setTimeout(() => {
+                    this.mostrarNotificacion = false;
+                  }, 3000);
+                })
               .catch(error => {
                   // Lógica para manejar el error de la solicitud
                   console.error(error);
+                     // Mostrar la notificación
+                     this.mensajeNotificacion = data.message;
+                     this.mostrarNotificacion = true;
+                     
+                    this.tipoNotificacion = 'error';
+
+                  // Ocultar la notificación después de 3 segundos
+                  setTimeout(() => {
+                    this.mostrarNotificacion = false;
+                  }, 3000);
               });
       },
   },

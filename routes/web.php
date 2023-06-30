@@ -17,7 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+//Route::get('/home', 'HomeController@index');
+Route::get('/home', 'PerroController@index');
 Route::get('/perros', 'PerroController@index');
 Route::get('/perros/{id}', 'PerroController@edit')->name('perros.edit');
 Route::put('/perros/{id}', 'PerroController@update')->name('perros.update');

@@ -1,0 +1,28 @@
+.notification {
+  position: fixed;
+  top: 70px;
+  right: 10px;
+  background-color: rgb(192, 233, 247);
+  border: 1px solid #dddddd;
+  padding: 10px;
+  border-radius: 4px;
+  transition: opacity 0.5s ease;
+}
+
+.notification.error {
+  background-color: #ffcccc; /* Color rojo para notificación de error */
+}
+
+.notification.success {
+  background-color: #ccffcc; /* Color verde para notificación de éxito */
+}
+
+.notification.fade-enter-active,
+.notification.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.notification.fade-enter,
+.notification.fade-leave-to {
+  opacity: 0;
+}
