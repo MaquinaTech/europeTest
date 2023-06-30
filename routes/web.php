@@ -14,3 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
+Route::get('/perros', 'PerroController@index');
+Route::get('/perros/{id}', 'PerroController@edit')->name('perros.edit');
+Route::put('/perros/{id}', 'PerroController@update')->name('perros.update');
+Route::delete('/perros/{id}', 'PerroController@destroy')->name('perros.destroy');
+
+
