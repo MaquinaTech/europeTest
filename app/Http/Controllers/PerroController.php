@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use App\Perro;
 
 
@@ -27,8 +31,7 @@ class PerroController extends Controller
      */
     public function create()
     {
-        return view('perros.create', compact('perro'));
-        
+        return view('perros.create');
     }
 
     /**
@@ -42,7 +45,6 @@ class PerroController extends Controller
         Perro::create($request->all());
         return redirect()->route('perros.index')
             ->with('success', 'Perro creado correctamente.');
-
     }
 
     /**
@@ -53,9 +55,8 @@ class PerroController extends Controller
      */
     public function show($id)
     {
-        Perro::find($id);
+        $perro = Perro::find($id);
         return view('perros.show', compact('perro'));
-        
     }
 
     /**
@@ -66,7 +67,7 @@ class PerroController extends Controller
      */
     public function edit($id)
     {
-        Perro::find($id);
+        $perro = Perro::find($id);
         return view('perros.edit', compact('perro'));
     }
 
@@ -79,11 +80,38 @@ class PerroController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Perro::find($id)->update($request->all());
-        return redirect()->route('perros.index')
-            ->with('success', 'Perro actualizado correctamente.');
-        
+
+        $validator = Validator::make($request->all(), [
+            'race' => 'required',
+            'name' => 'required',
+        ]);
+    
+        if ($validator->fails()) {
+            // La validación ha fallado
+            return response()->json([
+                'message' => 'Error de validación',
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        // Obtener el perro a actualizar
+        $perro = Perro::find($id);
+
+        // Actualizar los datos del perro con los valores del formulario
+        $perro->race = $request->race;
+        $perro->name = $request->name;
+        $perro->size = $request->size;
+        $perro->hair_color = $request->hair_color;
+        $perro->save();
+
+        // Devolver una respuesta JSON
+        return response()->json([
+            'message' => 'Perro actualizado correctamente',
+            'perro' => $perro
+        ]);
     }
+
+
 
     /**
      * Remove the specified resource from storage.
