@@ -29,13 +29,27 @@
 
               <div class="form-group">
                 <label for="size">Tamaño:</label>
-                <input type="text" name="size" class="form-control" v-model="perro.size" required>
+                <select name="size" class="form-control" v-model="perro.size" required>
+                  <option value="">Selecciona un tamaño</option>
+                  <option v-for="size in sizeOptions" :value="size.value">{{ size.label }}</option>
+                </select>
               </div>
+
 
               <div class="form-group">
                 <label for="hair_color">Color de Pelo:</label>
-                <input type="text" name="hair_color" class="form-control" v-model="perro.hair_color" required>
+                <div class="color-picker">
+                  <input type="hidden" name="hair_color" v-model="perro.hair_color" required>
+                  <div v-for="color in colores" :key="color" @click="selectColor(color)">
+                    <div :class="['color-option', color, { selected: perro.hair_color === color }]">
+                      <div class="color-circle"></div>
+                    </div>
+                  </div>
+                </div>
               </div>
+
+
+
 
               <button type="submit" class="btn btn-primary">Actualizar</button>
             </form>
@@ -56,6 +70,14 @@ export default {
       mostrarNotificacion: false,
       tipoNotificacion: '',
       mensajeNotificacion: '',
+      colores: ['negro', 'blanco', 'marrón', 'gris'],
+      sizeOptions: [
+      { label: 'Grande (+30kg)', value: 'big' },
+      { label: 'Mediano (20-30kg)', value: 'medium' },
+      { label: 'Pequeño (10-20kg)', value: 'small' },
+      { label: 'Muy pequeño (-10kg)', value: 'smaller' }
+    ],
+      
     };
   },
   mounted() {
@@ -105,6 +127,16 @@ export default {
             this.mostrarNotificacion = false;
           }, 3000);
         });
+    },
+    selectColor(color) {
+      this.perro.hair_color = color;
+    },
+    getColorClass(color) {
+      return {
+        'color-option': true,
+        [color]: true,
+        'selected': this.perro.hair_color === color
+      };
     },
   },
 };
