@@ -16,17 +16,25 @@ class PerrosTableSeeder extends Seeder
         Perro::create([
             'race' => 'Labrador',
             'name' => 'Pepe',
-            'size' => 'Grande',
-            'hair_color' => 'Negro',
+            'size' => 'big',
+            'hair_color' => 'negro',
             'img_url' => 'imagen1.jpg',
         ]);
 
         Perro::create([
             'race' => 'BullDog',
             'name' => 'Manolo',
-            'size' => 'Mediano',
-            'hair_color' => 'Marrón',
+            'size' => 'medium',
+            'hair_color' => 'marrón',
             'img_url' => 'imagen2.jpg',
+        ]);
+
+        Perro::create([
+            'race' => 'Caniche',
+            'name' => 'Lolo',
+            'size' => 'small',
+            'hair_color' => 'gris',
+            'img_url' => 'imagen3.jpg',
         ]);
 
         // Agrega más registros según tus necesidades
