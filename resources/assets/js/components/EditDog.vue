@@ -12,10 +12,17 @@
                 {{ mensajeNotificacion }}
               </div>
             </transition>
-
+            
             <form @submit="actualizarPerro" :action="formAction" method="POST">
-              <input type="hidden" name="_method" value="PUT">
+              <input type="hidden" name="_method" value="POST">
               <input type="hidden" name="_token" :value="csrfToken">
+              
+              <div class="form-group">
+                
+
+                <label for="image">Imagen:</label>
+                <input type="file" name="image" @change="handleImageChange">
+              </div>
 
               <div class="form-group">
                 <label for="race">Raza:</label>
@@ -74,6 +81,7 @@ export default {
         { label: 'Pequeño (10-20kg)', value: 'small' },
         { label: 'Muy pequeño (-10kg)', value: 'smaller' }
       ],
+      imageFile: null
       
     };
   },
@@ -87,15 +95,17 @@ export default {
   methods: {
     actualizarPerro(event) {
       event.preventDefault();
+      const formData = new FormData();
+      formData.append('image', this.imageFile);
+      formData.append('perro', JSON.stringify(this.perro));
 
       // Realizar la solicitud PUT para actualizar el perro
       fetch(this.formAction, {
-        method: 'PUT',
+        method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           'X-CSRF-TOKEN': this.csrfToken,
         },
-        body: JSON.stringify(this.perro),
+        body: formData,
       })
         .then(response => response.json())
         .then(data => {
@@ -127,11 +137,15 @@ export default {
           }, 3000);
         });
     },
+    handleImageChange(event) {
+      this.imageFile = event.target.files[0];
+    },
     updateColorIndicator() {
       // Realizar acciones adicionales según sea necesario
       console.log('Color seleccionado:', this.perro.hair_color);
       this.colorSelected=this.perro.hair_color;
-    }
-  },
+    },
+
+  }
 };
 </script>

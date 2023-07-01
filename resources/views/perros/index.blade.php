@@ -1,10 +1,7 @@
 @extends('layouts.app')
+
 @section('title', 'Lista Perro')
-<head>
-    <meta charset="utf-8">
-    <title>Lista Perro</title>
-    <link href="/css/styles.css" rel="stylesheet">
-</head>
+
 @section('content')
 <div id="app" class="container">
     <div class="row">
@@ -19,4 +16,7 @@
 @endsection
 @section('scripts')
 <script src="{{ asset('js/app.js') }}"></script>
+@endsection
+@section('styles')
+<link href="/css/styles.css" rel="stylesheet">
 @endsection

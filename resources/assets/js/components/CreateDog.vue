@@ -13,8 +13,8 @@
               </div>
             </transition>
 
-            <form @submit="actualizarPerro" :action="formAction" method="PUT">
-              <input type="hidden" name="_method" value="PUT">
+            <form @submit="actualizarPerro" :action="formAction" method="POST">
+              <input type="hidden" name="_method" value="POST">
               <input type="hidden" name="_token" :value="csrfToken">
 
               <div class="form-group">
@@ -96,20 +96,17 @@ export default {
     this.formAction = `/add`;
   },
   methods: {
-    handleImageChange(event) {
-      this.imageFile = event.target.files[0];
-    },
     actualizarPerro(event) {
       event.preventDefault();
       const formData = new FormData();
       formData.append('image', this.imageFile);
       formData.append('perro', JSON.stringify(this.perro));
+      
 
       // Realizar la solicitud PUT para actualizar el perro
       fetch(this.formAction, {
-        method: 'PUT',
+        method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           'X-CSRF-TOKEN': this.csrfToken,
         },
         body: formData,
@@ -141,6 +138,9 @@ export default {
             this.mostrarNotificacion = false;
           }, 3000);
         });
+    },
+    handleImageChange(event) {
+      this.imageFile = event.target.files[0];
     },
     updateColorIndicator() {
       // Realizar acciones adicionales según sea necesario
