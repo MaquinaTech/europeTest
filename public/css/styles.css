@@ -78,3 +78,34 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.color-indicator {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  margin-left: 10px;
+  bottom:0;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+}
+
+.negro {
+  background-color: black;
+}
+
+.blanco {
+  background-color: white;
+}
+
+.marrón {
+  background-color: brown;
+}
+
+.gris {
+  background-color: gray;
+}
+
+
+.flex {
+  display:flex;
+}

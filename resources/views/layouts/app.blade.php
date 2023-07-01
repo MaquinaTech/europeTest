@@ -72,6 +72,11 @@
                                     </li>
                                 </ul>
                             </li>
+                            <a href="{{ url('/logout') }}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a>
                         @endif
                     </ul>
                 </div>
