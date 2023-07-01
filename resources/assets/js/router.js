@@ -3,14 +3,14 @@ import VueRouter from 'vue-router';
 
 // Importa tus componentes de Vue que usarás como vistas en las rutas
 import EditDog from './components/EditDog.vue';
-import Example from './components/Example.vue';
+import ListDog from './components/ListDog.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/perros',
-    component: Example
+    component: ListDog
   },
   {
     path: '/perros/:id',

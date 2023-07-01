@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
-                <example :perros="{{ json_encode($perros) }}"></example>
+                <listdog :perros="{{ json_encode($perros) }}"></listdog>
             </div>
         </div>
     </div>
