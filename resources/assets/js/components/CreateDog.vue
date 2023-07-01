@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         <div class="panel panel-default">
-          <div class="panel-heading">Editar Perro</div>
+          <div class="panel-heading">Crear Perro</div>
 
           <div class="panel-body">
             <!-- Elemento de notificación -->
@@ -13,23 +13,28 @@
               </div>
             </transition>
 
-            <form @submit="actualizarPerro" :action="formAction" method="POST">
+            <form @submit="actualizarPerro" :action="formAction" method="PUT">
               <input type="hidden" name="_method" value="PUT">
               <input type="hidden" name="_token" :value="csrfToken">
 
               <div class="form-group">
+                <label for="image">Imagen:</label>
+                <input type="file" name="image" @change="handleImageChange">
+              </div>
+              
+              <div class="form-group">
                 <label for="race">Raza:</label>
-                <input type="text" name="race" class="form-control" v-model="perro.race" required>
+                <input type="text" name="race" class="form-control" required v-model="perro.race">
               </div>
 
               <div class="form-group">
                 <label for="name">Nombre:</label>
-                <input type="text" name="name" class="form-control" v-model="perro.name" required>
+                <input type="text" name="name" class="form-control" required v-model="perro.name">
               </div>
 
               <div class="form-group">
                 <label for="size">Tamaño:</label>
-                <select name="size" class="form-control" v-model="perro.size" required>
+                <select name="size" class="form-control" required v-model="perro.size">
                   <option value="">Selecciona un tamaño</option>
                   <option v-for="size in sizeOptions" :value="size.value">{{ size.label }}</option>
                 </select>
@@ -41,13 +46,13 @@
                   <label for="color">Color:</label>
                   <div class="color-indicator" :class="colorSelected"></div>
                 </div>
-                <select name="color" class="form-control" v-model="perro.hair_color" @change="updateColorIndicator" required>
+                <select name="color" class="form-control" @change="updateColorIndicator" required v-model="perro.hair_color">
                   <option value="">Selecciona un color</option>
                   <option v-for="color in colors" :value="color">{{ color }}</option>
                 </select>
                 
               </div>
-              <button type="submit" class="btn btn-primary">Actualizar</button>
+              <button type="submit" class="btn btn-success">Añadir</button>
             </form>
           </div>
         </div>
@@ -58,7 +63,6 @@
 
 <script>
 export default {
-  props: ['perro'],
   data() {
     return {
       csrfToken: '',
@@ -67,13 +71,20 @@ export default {
       tipoNotificacion: '',
       mensajeNotificacion: '',
       colors: ['negro', 'blanco', 'marrón', 'gris'],
-      colorSelected:this.perro.hair_color,
+      colorSelected:null,
       sizeOptions: [
         { label: 'Grande (+30kg)', value: 'big' },
         { label: 'Mediano (20-30kg)', value: 'medium' },
         { label: 'Pequeño (10-20kg)', value: 'small' },
         { label: 'Muy pequeño (-10kg)', value: 'smaller' }
       ],
+      perro: {
+        race: '',
+        name: '',
+        size: '',
+        hair_color: ''
+      },
+      imageFile: null
       
     };
   },
@@ -82,11 +93,17 @@ export default {
     this.csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     // Establecer la URL de acción del formulario
-    this.formAction = `/perros/${this.perro.id}`;
+    this.formAction = `/add`;
   },
   methods: {
+    handleImageChange(event) {
+      this.imageFile = event.target.files[0];
+    },
     actualizarPerro(event) {
       event.preventDefault();
+      const formData = new FormData();
+      formData.append('image', this.imageFile);
+      formData.append('perro', JSON.stringify(this.perro));
 
       // Realizar la solicitud PUT para actualizar el perro
       fetch(this.formAction, {
@@ -95,7 +112,7 @@ export default {
           'Content-Type': 'application/json',
           'X-CSRF-TOKEN': this.csrfToken,
         },
-        body: JSON.stringify(this.perro),
+        body: formData,
       })
         .then(response => response.json())
         .then(data => {
@@ -103,9 +120,8 @@ export default {
           console.log(data);
           // Mostrar la notificación de éxito
           this.mensajeNotificacion = data.message;
-          this.tipoNotificacion = 'success';
           this.mostrarNotificacion = true;
-          
+          this.tipoNotificacion = 'success';
 
           // Ocultar la notificación después de 3 segundos
           setTimeout(() => {
@@ -117,9 +133,8 @@ export default {
           console.error(error);
           // Mostrar la notificación de error
           this.mensajeNotificacion = 'Hubo un error al actualizar el perro.';
-          this.tipoNotificacion = 'error';
           this.mostrarNotificacion = true;
-          
+          this.tipoNotificacion = 'error';
 
           // Ocultar la notificación después de 3 segundos
           setTimeout(() => {

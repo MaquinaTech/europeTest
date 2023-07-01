@@ -13,7 +13,7 @@
                   </div>
                 </transition>
                 <div class="addDog">
-                  <button class="btn btn-success btn-sm" @click="abrirModalNuevoPerro">Nuevo Perro</button>
+                  <button class="btn btn-success btn-sm" @click="crearPerro">Nuevo Perro</button>
 
                 </div>
                 <table class="table" style="padding-top: 20px;">
@@ -73,7 +73,6 @@
       },
       mounted() {
         this.csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        this.formAction = `/perros/add`;
       },
       methods: {
         editarPerro(perro) {
@@ -84,6 +83,9 @@
             .catch(error => {
               console.error(error);
             });
+        },
+        crearPerro() {
+            window.location.href = `/add`;
         },
 
         eliminarPerro(perro) {
