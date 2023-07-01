@@ -122,7 +122,9 @@ class PerroController extends Controller
     public function destroy($id)
     {
         Perro::find($id)->delete();
-        return redirect()->route('perros.index')
-            ->with('success', 'Perro eliminado correctamente.');
+        $perros = Perro::all();
+        return response()->json([
+            'message' => 'Perro eliminado correctamente',
+        ]);
     }
 }
