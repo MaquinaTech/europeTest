@@ -43,8 +43,9 @@ class PerroController extends Controller
     public function store(Request $request)
     {
         Perro::create($request->all());
-        return redirect()->route('perros.index')
-            ->with('success', 'Perro creado correctamente.');
+        return response()->json([
+            'message' => 'Perro añadido correctamente',
+        ]);
     }
 
     /**

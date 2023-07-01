@@ -69,11 +69,11 @@ export default {
       colors: ['negro', 'blanco', 'marrón', 'gris'],
       colorSelected:this.perro.hair_color,
       sizeOptions: [
-      { label: 'Grande (+30kg)', value: 'big' },
-      { label: 'Mediano (20-30kg)', value: 'medium' },
-      { label: 'Pequeño (10-20kg)', value: 'small' },
-      { label: 'Muy pequeño (-10kg)', value: 'smaller' }
-    ],
+        { label: 'Grande (+30kg)', value: 'big' },
+        { label: 'Mediano (20-30kg)', value: 'medium' },
+        { label: 'Pequeño (10-20kg)', value: 'small' },
+        { label: 'Muy pequeño (-10kg)', value: 'smaller' }
+      ],
       
     };
   },
@@ -124,12 +124,6 @@ export default {
             this.mostrarNotificacion = false;
           }, 3000);
         });
-    },
-    getColorClass(color) {
-      return {
-        'color-indicator': true,
-        [color]: true
-      };
     },
     updateColorIndicator() {
       // Realizar acciones adicionales según sea necesario

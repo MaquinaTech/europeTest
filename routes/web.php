@@ -24,6 +24,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/perros/{id}', 'PerroController@edit')->name('perros.edit');
     Route::put('/perros/{id}', 'PerroController@update')->name('perros.update');
     Route::delete('/perros/{id}', 'PerroController@destroy')->name('perros.destroy');
+    Route::put('/perros/add', 'PerroController@store')->name('perros.add');
+
 });
 
 
