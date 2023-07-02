@@ -3,7 +3,7 @@
         <div class="row">
           <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-              <div class="panel-heading">Tabla de Ejemplo</div>
+              <div class="panel-heading">Lista de perros</div>
 
               <div class="panel-body">
                 <!-- Elemento de notificación -->
@@ -12,14 +12,14 @@
                     {{ mensajeNotificacion }}
                   </div>
                 </transition>
-                <div class="addDog">
-                  <button class="btn btn-success btn-sm" @click="crearPerro">Nuevo Perro</button>
+                <div class="topButtons">
                   <button class="btn btn-warning btn-sm" @click="descargarPDF">Descargar PDF</button>
-
+                  <button class="btn btn-success btn-sm" @click="crearPerro">Nuevo Perro</button>
                 </div>
                 <table class="table" style="padding-top: 20px;">
                   <thead>
                     <tr>
+                      <th>Imagen</th>
                       <th>Raza</th>
                       <th>Nombre</th>
                       <th>Tamaño</th>
@@ -131,13 +131,10 @@
             });
         },
         updateColorIndicator() {
-          // Realizar acciones adicionales según sea necesario
-          console.log('Color seleccionado:', this.perro.hair_color);
           this.colorSelected=this.perro.hair_color;
         },
         getImageUrl(imgUrl) {
           const url = imgUrl ? `/storage/${imgUrl}` : '';
-          console.log(url);
           return url;
         },
         descargarPDF() {

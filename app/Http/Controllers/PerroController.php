@@ -43,7 +43,7 @@ class PerroController extends Controller
     public function store(Request $request)
     {
         // Procesar la carga de archivos
-        $imagePath = "default.jpg";
+        $imagePath = "default.png";
         $array = $request->all();
         $perro = json_decode($array["perro"], true);
 

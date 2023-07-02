@@ -113,7 +113,6 @@ export default {
         .then(response => response.json())
         .then(data => {
           // Lógica para manejar la respuesta del servidor
-          console.log(data);
           // Mostrar la notificación de éxito
           this.mensajeNotificacion = data.message;
           this.tipoNotificacion = 'success';
@@ -147,13 +146,10 @@ export default {
       this.imageFile = event.target.files[0];
     },
     updateColorIndicator() {
-      // Realizar acciones adicionales según sea necesario
-      console.log('Color seleccionado:', this.perro.hair_color);
       this.colorSelected=this.perro.hair_color;
     },
     getImageUrl(imgUrl) {
       const url = imgUrl ? `/storage/${imgUrl}` : '';
-      console.log(url);
       return url;
     }
 

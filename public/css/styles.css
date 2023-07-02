@@ -114,8 +114,10 @@
   margin-top: 20px;
 }
 
-.addDog {
+.topButtons {
   margin-bottom: 20px;
+  display:flex;
+  justify-content: space-between;
 }
 
 .notification {
