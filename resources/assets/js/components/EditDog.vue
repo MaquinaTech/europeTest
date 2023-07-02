@@ -16,12 +16,15 @@
             <form @submit="actualizarPerro" :action="formAction" method="POST">
               <input type="hidden" name="_method" value="POST">
               <input type="hidden" name="_token" :value="csrfToken">
-              
-              <div class="form-group">
+              <div class="flex">
+                <div class="profile">
+                  <img :src="getImageUrl(perro.img_url)" alt="Perro" />
+                </div>
                 
-
-                <label for="image">Imagen:</label>
-                <input type="file" name="image" @change="handleImageChange">
+                <div class="form-group">
+                  <label for="image">Imagen:</label>
+                  <input type="file" name="image" @change="handleImageChange">
+                </div>
               </div>
 
               <div class="form-group">
@@ -115,6 +118,9 @@ export default {
           this.mensajeNotificacion = data.message;
           this.tipoNotificacion = 'success';
           this.mostrarNotificacion = true;
+          //Actualizamos imagen
+          this.perro = data.perro;
+
           
 
           // Ocultar la notificación después de 3 segundos
@@ -145,6 +151,11 @@ export default {
       console.log('Color seleccionado:', this.perro.hair_color);
       this.colorSelected=this.perro.hair_color;
     },
+    getImageUrl(imgUrl) {
+      const url = imgUrl ? `/storage/${imgUrl}` : '';
+      console.log(url);
+      return url;
+    }
 
   }
 };

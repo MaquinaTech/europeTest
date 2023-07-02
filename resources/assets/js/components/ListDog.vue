@@ -14,6 +14,7 @@
                 </transition>
                 <div class="addDog">
                   <button class="btn btn-success btn-sm" @click="crearPerro">Nuevo Perro</button>
+                  <button class="btn btn-warning btn-sm" @click="descargarPDF">Descargar PDF</button>
 
                 </div>
                 <table class="table" style="padding-top: 20px;">
@@ -28,6 +29,7 @@
                   </thead>
                   <tbody>
                     <tr v-for="perro in perros" :key="perro.id">
+                      <td><img :src="getImageUrl(perro.img_url)" alt="perro" class="rounded-image"/></td>
                       <td>{{ perro.race }}</td>
                       <td>{{ perro.name }}</td>
                       <td>{{ perro.size }}</td>
@@ -128,12 +130,19 @@
               }, 3000);
             });
         },
-
-
         updateColorIndicator() {
           // Realizar acciones adicionales según sea necesario
           console.log('Color seleccionado:', this.perro.hair_color);
           this.colorSelected=this.perro.hair_color;
+        },
+        getImageUrl(imgUrl) {
+          const url = imgUrl ? `/storage/${imgUrl}` : '';
+          console.log(url);
+          return url;
+        },
+        descargarPDF() {
+          const url = 'http://localhost:3001/descargar-pdf';
+          window.open(url, '_blank');
         }
       },
     };

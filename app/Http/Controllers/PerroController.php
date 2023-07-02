@@ -68,6 +68,7 @@ class PerroController extends Controller
         // Redireccionar o enviar una respuesta al cliente
         return response()->json([
             'message' => 'Perro creado correctamente',
+            'perro' => $nuevoPerro,
         ]);
     }
 
@@ -106,9 +107,7 @@ class PerroController extends Controller
     public function update(Request $request, $id)
     {
 
-        
-
-        $imagePath = "default.jpg";
+        $imagePath = "perros/default.jpg";
         $array = $request->all();
         $perroUpdated = json_decode($array["perro"], true);
 
