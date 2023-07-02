@@ -37,7 +37,7 @@ app.get('/descargar-pdf', (req, res) => {
 
     // Configurar el encabezado y el tipo de contenido de la respuesta
     res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', 'attachment; filename="archivo.pdf"');
+    res.setHeader('Content-Disposition', 'attachment; filename="perros.pdf"');
 
     // Pipe el contenido del PDF directamente a la respuesta HTTP
     doc.pipe(res);
